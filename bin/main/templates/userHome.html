@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous"/>
+    <title>Skillball</title>
+</head>
+<body>
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <h2 class="card-title" th:text="'Skillball'"></h2>
+            <div th:if="${successful}" class="alert alert-success">
+                <span th:text="'Login successful.'"></span>
+            </div>
+            <form th:action="@{/userHome/sites}" method="POST">
+                <label for="site">Select</label>
+                <select id="site" name="site">
+                    <option value="Home">Home</option>
+                    <option value="Settings">Settings</option>
+                    <option value="Account">Account</option>
+                    <option value="Support">Support</option>
+                </select>
+                <button name="button" type="submit" th:text="'Select'" class="btn btn-primary"></button>
+            </form>
+        </div>
+        <div class="card-body">
+            <h4 class="card-title" th:text="${welcome}"></h4>
+        </div>
+        <div class="card-body">
+            <form th:action="@{/userHome/newGame}" method="POST">
+                <div class="card-footer">
+                    <button name="button" type="submit" th:text="'Start New Game'" class="btn btn-primary"></button>
+                </div>
+            </form>
+        </div>
+        <div class="card-body">
+            <div th:each="game: ${games}">
+                <form th:action="@{/userHome/userGame}" method="POST">
+                    <div class="card-footer">
+                        <button name="button" th:value="${game.getGameId()}"
+                                type="submit" th:text="${game.getGameInfo()}" class="btn btn-primary"></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <p></p>
+        <a href="/logout">Logout</a>
+    </div>
+</div>
+</body>
+</html>>

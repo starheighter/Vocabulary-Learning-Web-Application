@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous"/>
+    <title>Skillball</title>
+</head>
+<body>
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <h2 th:text="${title}"></h2>
+            <p></p>
+            <div class="card-footer">
+                <div th:each="line: ${templateList}">
+                    <label th:text="${line}"></label>
+                </div>
+            </div>
+            <p></p>
+            <div th:if="${inGame}" class="card-body">
+                <form th:action="@{/userVocab/userGame}" method="POST">
+                    <button name="button" type="submit" th:text="'Close'" class="btn btn-primary"></button>
+                </form>
+            </div>
+            <div th:if="${!inGame}" class="card-body">
+                <form th:action="@{/userVocab/userHome}" method="POST">
+                    <button name="button" type="submit" th:text="'Close'" class="btn btn-primary"></button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>>

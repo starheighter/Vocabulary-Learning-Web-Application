@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous"/>
+    <title>Skillball</title>
+</head>
+<body>
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <form th:action="@{/getUsername/login}" method="POST" class="form-horizontal">
+                <h2 class="card-title" th:text="'Get Username'"></h2>
+                <div th:if="${failed}" class="alert alert-danger">
+                    <span th:text="'Email could not be found.'"></span>
+                </div>
+                <div class="row form-group">
+                    <div class="col-12 col-md-6">
+                        <label>E-Mail</label>
+                        <input type="text" name="email" placeholder="E-Mail" class="form-control"/><br/>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button name="button" type="submit" th:text="'Get Username'" class="btn btn-primary"></button>
+                </div>
+            </form>
+        </div>
+        <p></p>
+        <a href="/login">Back to Login</a>
+    </div>
+</div>
+</body>
+</html>>

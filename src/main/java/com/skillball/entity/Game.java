@@ -283,9 +283,9 @@ public class Game {
 
     public String getPicturePath() {
         if (homePossession) {
-            return "http://localhost:63342/Skillball/src/main/resources/images/" + ((int) (Math.round(yard / 5.0))) * 5 + ".jpg";
+           return "/images/" + ((int) (Math.round(yard / 5.0))) * 5 + ".jpg";
         } else {
-            return "http://localhost:63342/Skillball/src/main/resources/images/" + ((int) (Math.round((100 - yard) / 5.0))) * 5 + ".jpg";
+            return "/images/" + ((int) (Math.round((100 - yard) / 5.0))) * 5 + ".jpg";
         }
     }
 }

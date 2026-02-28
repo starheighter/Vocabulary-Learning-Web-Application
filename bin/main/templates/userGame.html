@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous"/>
+    <title>Skillball</title>
+</head>
+<body>
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <img th:src="${game.getPicturePath()}" width="1069" height="350" th:alt="${game.getPicturePath()}">
+            <div class="card-footer">
+                <h4 th:text="${game.getTopGameInfo()}"></h4>
+                <h5 th:text="${game.getBottomGameInfo()}"></h5>
+            </div>
+        </div>
+        <div th:if="${gameScreen}" class="card-body">
+            <form th:action="@{/userGame/continueLeaveGame}" method="POST">
+                <div class="card-footer">
+                    <button name="button" th:value="continue" type="submit" th:text="'Continue'"
+                            class="btn btn-primary"></button>
+                    <button name="button" th:value="leave" type="submit" th:text="'Leave'"
+                            class="btn btn-primary"></button>
+                </div>
+                <div class="card-footer">
+                    <button name="button" th:value="delete" type="submit" th:text="'Delete Game'"
+                            class="btn btn-primary"></button>
+                </div>
+            </form>
+        </div>
+        <div th:if="${moveScreen}" class="card-body">
+            <form th:action="@{/userGame/userGameMove}" method="POST">
+                <div th:if="${conversion}" class="card-footer">
+                    <button name="button" th:value="${moves[0]}" type="submit" th:text="${moves[0]}"
+                            class="btn btn-primary"></button>
+                    <button name="button" th:value="${moves[1]}" type="submit" th:text="${moves[1]}"
+                            class="btn btn-primary"></button>
+                </div>
+                <div th:if="${!conversion}" class="card-footer">
+                    <button name="button" th:value="${moves[0]}" type="submit" th:text="${moves[0]}"
+                            class="btn btn-primary"></button>
+                    <button name="button" th:value="${moves[1]}" type="submit" th:text="${moves[1]}"
+                            class="btn btn-primary"></button>
+                    <button name="button" th:value="${moves[2]}" type="submit" th:text="${moves[2]}"
+                            class="btn btn-primary"></button>
+                    <button name="button" th:value="${moves[3]}" type="submit" th:text="${moves[3]}"
+                            class="btn btn-primary"></button>
+                    <button name="button" th:value="${moves[4]}" type="submit" th:text="${moves[4]}"
+                            class="btn btn-primary"></button>
+                </div>
+            </form>
+        </div>
+        <div th:if="${answerScreen}" class="card-body">
+            <h4 th:text="${vocab.getTranslation()}"></h4>
+            <form th:action="@{/userGame/userGameAnswer}" method="POST" class="form-horizontal">
+                <div class="col-12 col-md-6">
+                    <input type="text" name="answer" placeholder="English Translation" class="form-control"/><br/>
+                </div>
+                <div class="card-footer">
+                    <button name="button" type="submit" th:text="'Answer'" class="btn btn-primary"></button>
+                </div>
+            </form>
+            <form th:action="@{/userGame/vocabList}" method="POST" class="form-horizontal">
+                <div class="card-footer">
+                    <button name="button" type="submit" th:text="'View Vocab List'" class="btn btn-primary"></button>
+                </div>
+            </form>
+        </div>
+        <div th:if="${failed}" class="alert alert-danger">
+            <span th:text="'Wrong Translation.'"></span>
+        </div>
+    </div>
+</div>
+</body>
+</html>>

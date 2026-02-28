@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous"/>
+    <title>Skillball</title>
+</head>
+<body>
+<div class="container">
+    <form th:action="@{/adminLogin/adminVocab}" id="administratorLogin" method="post"
+          class="form-horizontal">
+        <div class="card">
+            <div class="card-body">
+                <h1 class="card-title" th:text="'Skillball'"></h1>
+                <div class="row form-group">
+                    <div class="col-12 col-md-6">
+                        <label>Username</label>
+                        <input name="username" type="text" placeholder="Username" class="form-control"/><br/>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-12 col-md-6">
+                        <label>Password</label>
+                        <input name="password" type="password" placeholder="Password" class="form-control"/><br/>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <button name="button" type="submit" th:text="'Administrator Login'" class="btn btn-primary"></button>
+            </div>
+            <a href="/getUsername">Get Username</a>
+            <a href="/password">Change Password</a>
+            <a href="/login">Login</a>
+        </div>
+    </form>
+</div>
+</body>
+</html>>

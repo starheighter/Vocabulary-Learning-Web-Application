@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous"/>
+    <title>Skillball</title>
+</head>
+<body>
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <h2 class="card-title" th:text="'Skillball'"></h2>
+            <div th:if="${successful}" class="alert alert-success">
+                <span th:text="'Sending succesful.'"></span>
+            </div>
+            <div th:if="${failed}" class="alert alert-danger">
+                <span th:text="'Sending failed.'"></span>
+            </div>
+            <form th:action="@{/userHome/sites}" method="POST">
+                <label for="site">Select</label>
+                <select id="site" name="site">
+                    <option value="Home">Home</option>
+                    <option value="Settings">Settings</option>
+                    <option value="Account">Account</option>
+                    <option value="Support">Support</option>
+                </select>
+                <button name="button" type="submit" th:text="'Select'" class="btn btn-primary"></button>
+            </form>
+        </div>
+        <div class="card-body">
+            <h4 class="card-title" th:text="'Tickets'"></h4>
+        </div>
+        <div th:each="ticket: ${ticketList}">
+            <div class="card-body">
+                <div class="card-footer">
+                    <h6 th:text="'Ticket Number: '"></h6>
+                    <label th:text="${ticket.getTicketId()}"></label>
+                    <h6 th:text="'Timestamp: '"></h6>
+                    <label th:text="${ticket.getTimeStamp()}"></label>
+                    <h6 th:text="'Title: '"></h6>
+                    <label th:text="${ticket.getTitle()}"></label>
+                    <h6 th:text="'Text: '"></h6>
+                    <label th:text="${ticket.getText()}"></label>
+                    <h6 th:text="'Answer: '"></h6>
+                    <label th:text="${ticket.getAnswer()}"></label>
+                    <form th:action="@{/userHome/deleteTicket}" method="POST" class="form-horizontal">
+                        <button name="button" th:value="${ticket.getTicketId()}" type="submit" th:text="'Delete Ticket'"
+                                class="btn btn-primary"></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-body">
+            <form th:action="@{/userHome/sendTicket}" method="POST" class="form-horizontal">
+                <h6 class="card-title" th:text="'Send New Ticket'"></h6>
+                <div class="col-12 col-md-6">
+                    <input type="text" name="title" placeholder="Title" class="form-control"/><br/>
+                    <input type="text" name="text" placeholder="Text" class="form-control"/><br/>
+                </div>
+                <div class="card-footer">
+                    <button name="button" type="submit" th:text="'Send Ticket'" class="btn btn-primary"></button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <p></p>
+    <a href="/logout">Logout</a>
+</div>
+</div>
+</body>
+</html>>

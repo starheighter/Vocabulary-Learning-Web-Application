@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous"/>
+    <title>Skillball</title>
+</head>
+<body>
+<div class="container">
+    <form th:action="@{/login/userHome}" id="login" method="post" class="form-horizontal">
+        <div class="card">
+            <div class="card-body">
+                <h1 class="card-title" th:text="'Skillball'"></h1>
+                <div th:if="${param.logout}" class="alert alert-success">
+                    <span th:text="'Logout successful.'"></span>
+                </div>
+                <div th:if="${regSuccessful}" class="alert alert-success">
+                    <span th:text="'Registration successful.'"></span>
+                </div>
+                <div th:if="${successful}" class="alert alert-success">
+                    <span th:text="'Change successful.'"></span>
+                </div>
+                <div th:if="${emailSuccessful}" class="alert alert-success">
+                    <span th:text="'Email with Username is sent.'"></span>
+                </div>
+                <div th:if="${conSuccessful}" class="alert alert-success">
+                    <span th:text="'E-Mail is confirmed.'"></span>
+                </div>
+                <div th:if="${delSuccessful}" class="alert alert-success">
+                    <span th:text="'Account is deleted.'"></span>
+                </div>
+                <div th:if="${failed}" class="alert alert-danger">
+                    <span th:text="'Login failed.'"></span>
+                </div>
+                <div class="row form-group">
+                    <div class="col-12 col-md-6">
+                        <label>Username</label>
+                        <input name="username" type="text" placeholder="Username" class="form-control"/><br/>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-12 col-md-6">
+                        <label>Password</label>
+                        <input name="password" type="password" placeholder="Password" class="form-control"/><br/>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <button name="button" type="submit" th:text="'Login'" class="btn btn-primary"></button>
+            </div>
+            <a href="/register">Register</a>
+            <a href="/getUsername">Get Username</a>
+            <a href="/password">Change Password</a>
+            <a href="/adminLogin">Administrator Login</a>
+        </div>
+    </form>
+</div>
+</body>
+</html>>

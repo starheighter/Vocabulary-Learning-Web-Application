@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous"/>
+    <title>Skillball</title>
+</head>
+<body>
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <h2 class="card-title" th:text="'Administrator'"></h2>
+            <div th:if="${successful}" class="alert alert-success">
+                <span th:text="'Login successful.'"></span>
+            </div>
+            <form th:action="@{/admin/sites}" method="POST">
+                <label for="site">Select</label>
+                <select id="site" name="site">
+                    <option value="Vocab">Vocab</option>
+                    <option value="User">User</option>
+                    <option value="Account">Account</option>
+                    <option value="Support">Support</option>
+                </select>
+                <button name="button" type="submit" th:text="'Select'" class="btn btn-primary"></button>
+            </form>
+        </div>
+        <div class="card-body">
+            <h4 class="card-title" th:text="'Vocab'"></h4>
+            <form th:action="@{/admin/selectList}" method="POST">
+                <label for="language">Language</label>
+                <select id="language" name="language">
+                    <option value="German">German</option>
+                    <option value="French">French</option>
+                    <option value="Italian">Italian</option>
+                </select>
+                <label for="level">Level</label>
+                <select id="level" name="level">
+                    <option value="Basic">Basic</option>
+                    <option value="Advanced">Advanced</option>
+                    <option value="Expert">Expert</option>
+                </select>
+                <label for="index">Index</label>
+                <select id="index" name="index">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                </select>
+                <button name="button" type="submit" th:text="'Select'" class="btn btn-primary"></button>
+            </form>
+        </div>
+        <div class="card-footer">
+            <div class="col-12 col-md-6">
+                <h4 class="card-title" th:text="${title}"></h4>
+                <div th:each="line: ${templateList}">
+                    <h6 th:text="${line}"></h6>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <form th:action="@{/admin/addVocab}" method="POST" class="form-horizontal">
+                <div class="col-12 col-md-6">
+                    <input type="text" name="english" placeholder="English" class="form-control"/><br/>
+                    <input type="text" name="translation" placeholder="Translation" class="form-control"/><br/>
+                </div>
+                <div class="card-footer">
+                    <button name="button" type="submit" th:text="'Add Vocab'" class="btn btn-primary"></button>
+                </div>
+            </form>
+        </div>
+        <div class="card-body">
+            <form th:action="@{/admin/removeVocab}" method="POST" class="form-horizontal">
+                <div class="col-12 col-md-6">
+                    <input type="number" name="position" placeholder="Index" class="form-control"/><br/>
+                </div>
+                <div class="card-footer">
+                    <button name="button" type="submit" th:text="'Remove Vocab'" class="btn btn-primary"></button>
+                </div>
+            </form>
+        </div>
+        <p></p>
+        <a href="/logout">Logout</a>
+    </div>
+</div>
+</body>
+</html>>
