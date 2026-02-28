@@ -216,9 +216,9 @@ public class Game {
 
     public String getTopGameInfo() {
         if (homePossession) {
-            return guest + " " + scoreGuest + ":" + scoreHome + "- " + home;
+            return guest + " " + scoreGuest + ":" + scoreHome + "  - " + home;
         } else {
-            return guest + " -" + scoreGuest + ":" + scoreHome + " " + home;
+            return guest + " -  " + scoreGuest + ":" + scoreHome + " " + home;
         }
     }
 
@@ -283,7 +283,7 @@ public class Game {
 
     public String getPicturePath() {
         if (homePossession) {
-           return "/images/" + ((int) (Math.round(yard / 5.0))) * 5 + ".jpg";
+            return "/images/" + ((int) (Math.round(yard / 5.0))) * 5 + ".jpg";
         } else {
             return "/images/" + ((int) (Math.round((100 - yard) / 5.0))) * 5 + ".jpg";
         }

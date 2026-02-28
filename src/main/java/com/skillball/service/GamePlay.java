@@ -16,8 +16,7 @@ public class GamePlay {
     private VocabService vocabService;
 
     private long gameClock;
-    public final double THRESHOLD = 2.0;
-
+    public final double THRESHOLD = 3.0;
 
     public void delete() {
         Game game = gameService.getCurrentGame();
@@ -32,7 +31,8 @@ public class GamePlay {
             game.setScoreHome(game.getScoreHome() + 6);
         } else {
             game.setScoreGuest(game.getScoreGuest() + 6);
-            if (game.getScoreHome() > game.getScoreGuest() && (game.getScoreHome() - game.getScoreGuest() - 2) % 8 == 0) {
+            if (game.getScoreHome() > game.getScoreGuest()
+                    && (game.getScoreHome() - game.getScoreGuest() - 2) % 8 == 0) {
                 game.setTwoPoint(true);
                 game.setYard(98);
             } else {
@@ -97,7 +97,8 @@ public class GamePlay {
             User user = userService.getCurrentUser();
             vocabService.updateCurrentVocabList(user.getLanguage(), user.getLevel(), user.getIndex(), false);
         }
-        int index = (int) (Math.random() * vocabService.getCurrentVocabList(false).size()) % vocabService.getCurrentVocabList(false).size();
+        int index = (int) (Math.random() * vocabService.getCurrentVocabList(false).size())
+                % vocabService.getCurrentVocabList(false).size();
         vocabService.setCurrentVocab(vocabService.getCurrentVocabList(false).remove(index));
         activateGameClock();
         return vocabService.getCurrentVocab();
@@ -270,7 +271,7 @@ public class GamePlay {
                     responseTime = responseTime;
                     break;
                 case "Long Pass":
-                    responseTime = responseTime * 2.0;
+                    responseTime = responseTime * 1.5;
                     break;
             }
         } else {
@@ -280,9 +281,10 @@ public class GamePlay {
                 case "Two Point Attempt":
                     return responseTime;
                 case "Field Goal Attempt":
-                    return Math.min(responseTime + (35 - (100 - game.getYard())) / 10.0 * THRESHOLD, responseTime + 1.5);
+                    return Math.min(responseTime + (35 - (100 - game.getYard())) / 10.0 * THRESHOLD,
+                            responseTime + 1.5);
                 case "Run":
-                    responseTime = responseTime * 2.0;
+                    responseTime = responseTime * 1.5;
                     break;
                 case "Pass":
                     responseTime = responseTime;
