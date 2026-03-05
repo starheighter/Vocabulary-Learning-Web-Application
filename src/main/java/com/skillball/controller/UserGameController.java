@@ -1,6 +1,7 @@
 package com.skillball.controller;
 
 import com.skillball.entity.Game;
+import com.skillball.entity.Status;
 import com.skillball.entity.User;
 import com.skillball.service.GamePlay;
 import com.skillball.service.GameService;
@@ -48,62 +49,68 @@ public class UserGameController {
             model.addAttribute("games", gameService.listRelevantGames(user));
             return "userHome";
         } else {
-            if (game.isTouchdown()) {
-                gamePlay.touchdown();
-                if (game.isHomePossession()) {
-                    adaptModel(model, "moveScreen");
-                    model.addAttribute("moves", new String[]{"Extra Point", "Two Point Attempt"});
-                    model.addAttribute("conversion", true);
-                    return "userGame";
-                } else {
-                    adaptModel(model, "gameScreen");
-                    return "userGame";
-                }
-            } else if (game.isSafety()) {
-                gamePlay.safety();
-                adaptModel(model, "gameScreen");
-                return "userGame";
-            } else if (game.isExtraPoint() || game.isTwoPoint() || game.isFieldGoal()) {
-                gamePlay.extraPointTwoPointFieldGoal();
-                adaptModel(model, "answerScreen");
-                model.addAttribute("vocab", gamePlay.chooseVocab());
-                return "userGame";
-            } else if (game.isKickoff() || game.isPunt()) {
-                gamePlay.kickoffPunt();
-                adaptModel(model, "gameScreen");
-                return "userGame";
-            } else if (game.getTime() == 0) {
-                gamePlay.endOfQuarter(user.getDurationQuarter());
-                if (game.getQuarter() == 5) {
-                    model.addAttribute("welcome", "Hello " + user.getUsername() + "! Nice that You are here!");
-                    model.addAttribute("games", gameService.listRelevantGames(user));
-                    return "userHome";
-                }
-                adaptModel(model, "gameScreen");
-                return "userGame";
-            } else {
-                String[] moves = new String[]{"Run", "Pass", "Long Pass", "Punt", "Field Goal Attempt"};
-                if (game.isHomePossession()) {
-                    adaptModel(model, "moveScreen");
-                    model.addAttribute("moves", moves);
-                    model.addAttribute("conversion", false);
-                    return "userGame";
-                } else {
-                    if (game.getDown() == 4 && game.getYard() < 55) {
-                        game.setPunt(true);
-                        adaptModel(model, "gameScreen");
+            switch (game.getStatus()) {
+                case TOUCHDOWN:
+                    gamePlay.touchdown();
+                    if (game.isHomePossession()) {
+                        adaptModel(model, "moveScreen");
+                        model.addAttribute("moves", new String[] { "Extra Point", "Two Point Attempt" });
+                        model.addAttribute("conversion", true);
                         return "userGame";
-                    } else if (game.getDown() == 4 && game.getYard() > 60) {
-                        game.setFieldGoal(true);
+                    } else {
                         adaptModel(model, "gameScreen");
                         return "userGame";
                     }
-                    int index = (int) (Math.random() * 3) % 3;
-                    game.setMove(moves[index]);
+                case SAFETY:
+                    gamePlay.safety();
+                    adaptModel(model, "gameScreen");
+                    return "userGame";
+                case EXTRAPOINT:
+                case TWOPOINT:
+                case FIELDGOAL:
+                    gamePlay.extraPointTwoPointFieldGoal();
                     adaptModel(model, "answerScreen");
                     model.addAttribute("vocab", gamePlay.chooseVocab());
                     return "userGame";
-                }
+                case KICKOFF:
+                case PUNT:
+                    gamePlay.kickoffPunt();
+                    adaptModel(model, "gameScreen");
+                    return "userGame";
+                default:
+                    if (game.getTime() == 0) {
+                        gamePlay.endOfQuarter(user.getDurationQuarter());
+                        if (game.getQuarter() == 5) {
+                            model.addAttribute("welcome", "Hello " + user.getUsername() + "! Nice that You are here!");
+                            model.addAttribute("games", gameService.listRelevantGames(user));
+                            return "userHome";
+                        }
+                        adaptModel(model, "gameScreen");
+                        return "userGame";
+                    } else {
+                        String[] moves = new String[] { "Run", "Pass", "Long Pass", "Punt", "Field Goal Attempt" };
+                        if (game.isHomePossession()) {
+                            adaptModel(model, "moveScreen");
+                            model.addAttribute("moves", moves);
+                            model.addAttribute("conversion", false);
+                            return "userGame";
+                        } else {
+                            if (game.getDown() == 4 && game.getYard() < 55) {
+                                game.setStatus(Status.PUNT);
+                                adaptModel(model, "gameScreen");
+                                return "userGame";
+                            } else if (game.getDown() == 4 && game.getYard() > 60) {
+                                game.setStatus(Status.FIELDGOAL);
+                                adaptModel(model, "gameScreen");
+                                return "userGame";
+                            }
+                            int index = (int) (Math.random() * 3) % 3;
+                            game.setMove(moves[index]);
+                            adaptModel(model, "answerScreen");
+                            model.addAttribute("vocab", gamePlay.chooseVocab());
+                            return "userGame";
+                        }
+                    }
             }
         }
     }
@@ -138,6 +145,7 @@ public class UserGameController {
         }
         String comment = gamePlay.progress(gamePlay.getResponseTime());
         adaptModel(model, "gameScreen");
+        // model.addAttribute("comment", comment);
         return "userGame";
     }
 
@@ -153,7 +161,6 @@ public class UserGameController {
 
     @PostMapping("/userVocab/userGame")
     public String userVocab(HttpServletRequest req, Model model) {
-        Game game = gameService.getCurrentGame();
         adaptModel(model, "answerScreen");
         model.addAttribute("vocab", vocabService.getCurrentVocab());
         return "userGame";

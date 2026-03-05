@@ -20,19 +20,14 @@ public class Game {
     private int time;
     private int scoreGuest;
     private int scoreHome;
-    private boolean kickoff;
-    private boolean touchdown;
-    private boolean safety;
-    private boolean fieldGoal;
-    private boolean extraPoint;
-    private boolean twoPoint;
-    private boolean punt;
     private boolean homePossession;
     private int yard;
     private int down;
     private int yellow;
     private boolean homeStarted;
     private String move;
+    private Status status;
+    private String comment;
 
     public Integer getGameId() {
         return gameId;
@@ -102,60 +97,12 @@ public class Game {
         this.scoreHome = scoreHome;
     }
 
-    public boolean isKickoff() {
-        return kickoff;
+    public Status getStatus() {
+        return status;
     }
 
-    public void setKickoff(boolean kickoff) {
-        this.kickoff = kickoff;
-    }
-
-    public boolean isTouchdown() {
-        return touchdown;
-    }
-
-    public void setTouchdown(boolean touchdown) {
-        this.touchdown = touchdown;
-    }
-
-    public boolean isSafety() {
-        return safety;
-    }
-
-    public void setSafety(boolean safety) {
-        this.safety = safety;
-    }
-
-    public boolean isFieldGoal() {
-        return fieldGoal;
-    }
-
-    public void setFieldGoal(boolean fielGoal) {
-        this.fieldGoal = fielGoal;
-    }
-
-    public boolean isExtraPoint() {
-        return extraPoint;
-    }
-
-    public void setExtraPoint(boolean extraPoint) {
-        this.extraPoint = extraPoint;
-    }
-
-    public boolean isTwoPoint() {
-        return twoPoint;
-    }
-
-    public void setTwoPoint(boolean twoPoint) {
-        this.twoPoint = twoPoint;
-    }
-
-    public boolean isPunt() {
-        return punt;
-    }
-
-    public void setPunt(boolean punt) {
-        this.punt = punt;
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
     public boolean isHomePossession() {
@@ -206,46 +153,62 @@ public class Game {
         this.move = move;
     }
 
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
     public String getGameInfo() {
         if (homePossession) {
-            return guest + " " + scoreGuest + ":" + scoreHome + "- " + home + " | " + timeStamp;
+            return guest + " " + scoreGuest + ":" + scoreHome + " - " + home + " | " + timeStamp;
         } else {
-            return guest + " -" + scoreGuest + ":" + scoreHome + " " + home + " | " + timeStamp;
+            return guest + " - " + scoreGuest + ":" + scoreHome + " " + home + " | " + timeStamp;
         }
     }
 
     public String getTopGameInfo() {
         if (homePossession) {
-            return guest + " " + scoreGuest + ":" + scoreHome + "  - " + home;
+            return guest + " " + scoreGuest + ":" + scoreHome + " - " + home;
         } else {
-            return guest + " -  " + scoreGuest + ":" + scoreHome + " " + home;
+            return guest + " - " + scoreGuest + ":" + scoreHome + " " + home;
         }
     }
 
     public String getBottomGameInfo() {
         String addition;
-        if (kickoff) {
-            addition = "KICKOFF";
-        } else if (touchdown) {
-            addition = "TOUCHDOWN";
-        } else if (fieldGoal) {
-            addition = "FIELD GOAL ATTEMPT";
-        } else if (extraPoint) {
-            addition = "EXTRA POINT";
-        } else if (twoPoint) {
-            addition = "TWO POINT ATTEMPT";
-        } else if (punt) {
-            addition = "PUNTING";
-        } else if (safety) {
-            addition = "SAFETY";
-        } else {
-            if (yard + yellow >= 100) {
-                addition = down + getEnding(down) + " & " + "GOAL";
-            } else {
-                addition = down + getEnding(down) + " & " + yellow;
-            }
+        switch (status) {
+            case KICKOFF:
+                addition = "KICKOFF";
+                break;
+            case TOUCHDOWN:
+                addition = "TOUCHDOWN";
+                break;
+            case FIELDGOAL:
+                addition = "FIELD GOAL ATTEMPT";
+                break;
+            case EXTRAPOINT:
+                addition = "EXTRA POINT";
+                break;
+            case TWOPOINT:
+                addition = "TWO POINT ATTEMPT";
+                break;
+            case PUNT:
+                addition = "PUNTING";
+                break;
+            case SAFETY:
+                addition = "SAFETY";
+                break;
+            default:
+                if (yard + yellow >= 100) {
+                    addition = down + getEnding(down) + " & " + "GOAL";
+                } else {
+                    addition = down + getEnding(down) + " & " + yellow;
+                }
         }
-        return getQuarterTime() + " | " + addition;
+        return getQuarterTime() + " | " + addition + " | " + (comment != null ? comment : "");
     }
 
     private String getQuarterTime() {

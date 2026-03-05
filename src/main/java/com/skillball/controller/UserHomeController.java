@@ -1,6 +1,7 @@
 package com.skillball.controller;
 
 import com.skillball.entity.Game;
+import com.skillball.entity.Status;
 import com.skillball.entity.User;
 import com.skillball.service.GameService;
 import com.skillball.service.TicketService;
@@ -67,11 +68,11 @@ public class UserHomeController {
         newGame.setTime(user.getDurationQuarter());
         newGame.setScoreGuest(0);
         newGame.setScoreHome(0);
-        newGame.setKickoff(true);
         newGame.setHomePossession(Math.random() > 0.5);
         newGame.setYard(65);
         newGame.setDown(1);
         newGame.setYellow(10);
+        newGame.setStatus(Status.KICKOFF);
         newGame.setHomeStarted(newGame.isHomePossession());
         gameService.saveGame(newGame);
         gameService.setCurrentGame(newGame);
