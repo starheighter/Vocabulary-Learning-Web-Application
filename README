@@ -1,0 +1,211 @@
+# Skillball – Vocabulary Learning Game
+
+## Overview
+Skillball is a **web-based vocabulary learning application** built with **Java, Spring Boot, and Gradle**.
+The application combines **language learning with a simple football-themed game mechanic**.
+
+Users practice vocabulary translations, and their performance directly influences a **football simulation** where the ball moves across the field depending on how accurately the user translates the words.
+
+The system supports two types of users:
+
+* **Admin users** – manage user accounts and vocabulary
+* **Regular users** – manage their personal settings and play the learning game
+
+The frontend is implemented with **HTML templates**, while the backend is implemented using **Spring Boot** with a layered architecture.
+
+# Features
+
+### User Features
+* User login and registration
+* Change password and manage personal settings
+* Play a vocabulary learning game
+* Game outcome depends on vocabulary performance
+
+### Admin Features
+* Manage user accounts
+* Manage vocabulary entries
+* Maintain the vocabulary database used in the game
+
+### Game Mechanic
+The vocabulary training is integrated into a **football simulation**:
+
+* The user translates vocabulary correctly or incorrectly.
+* Based on the accuracy of the answers, the ball moves **forward or backward** across the field.
+* Better vocabulary performance results in **more successful gameplay**.
+
+# Technology Stack
+Backend:
+
+* Java
+* Spring Boot
+* Spring Security
+* Spring Data JPA
+* Gradle
+
+Frontend:
+
+* HTML templates
+* Static images for game visualization
+
+Build tool:
+
+* Gradle
+
+# Running the Application
+
+## Requirements
+* Java JDK 11 or higher
+* Gradle (wrapper included)
+
+## Start the Application
+From the project root directory, run:
+./gradlew bootRun
+
+After the application starts, open a browser and navigate to:
+http://localhost:8080
+
+You will be redirected to the **login page**.
+
+# Application Workflow
+
+### Login
+Users first access the **login page**.
+
+After authentication:
+* **Admins** are redirected to the **administration interface**
+* **Users** are redirected to the **user dashboard**
+
+# Admin Capabilities
+After logging in as an admin, the following features are available:
+* User account management
+* Vocabulary management
+* System administration
+Admins can add, modify, or remove vocabulary entries used in the learning game.
+
+# User Capabilities
+After logging in as a regular user, the following actions are available:
+* Manage personal account settings
+* Change password
+* Play the vocabulary learning game
+
+# Game Description
+The core feature of the application is the **Skillball vocabulary game**.
+Gameplay works as follows:
+1. The user is shown a vocabulary word.
+2. The user must translate the word correctly.
+3. The system evaluates the answer.
+4. The football simulation reacts to the result:
+   * Correct answers move the ball **towards the opponent's goal**
+   * Incorrect answers move the ball **towards the user's own goal**
+The game visually displays the ball moving across the field using images stored in the application.
+
+# Project Structure
+The project follows a typical **Spring Boot layered architecture**.
+
+src/main/java/...
+├── config
+├── controller
+├── entity
+├── repository
+├── service
+└── SkillballApplication.java
+
+# Package Description
+## config
+Contains configuration classes.
+
+Example:
+* `SecurityConfiguration.java`
+This class configures:
+* authentication
+* authorization
+* access restrictions for protected pages
+
+## controller
+Contains the controllers responsible for handling web requests and returning HTML views.
+
+Examples include controllers for:
+* login
+* registration
+* admin dashboard
+* user dashboard
+* password change
+* game pages
+
+Controllers connect the frontend HTML templates with the backend services.
+
+## entity
+Contains the **JPA entity classes** used by the application.
+
+Examples:
+* `User.java`
+* `Role.java`
+* `Game.java`
+
+These classes represent the data model used by the application.
+
+## repository
+Contains the **Spring Data repositories** used for database access.
+
+Examples:
+* `UserRepository.java`
+* `VocabRepository.java`
+
+Repositories provide CRUD operations and database queries.
+
+## service
+Contains the business logic of the application.
+
+Examples:
+* `GameService`
+* `RoleService`
+* additional services for managing users and vocabulary
+
+Services are used by the controllers to implement application functionality.
+
+# Main Application Class
+The file
+SkillballApplication.java
+contains the main method that starts the Spring Boot application.
+
+# Resources
+The `resources` directory contains:
+
+### HTML Templates
+Used to render the web interface, including:
+* login page
+* registration page
+* admin interface
+* user dashboard
+* game interface
+
+### Static Assets
+Images used to display the football game states.
+These images represent different **ball positions on the field** and visually reflect the user's progress during gameplay.
+
+# Security
+The application includes **built-in security using Spring Security**.
+
+Security features include:
+
+* user authentication (login)
+* role-based authorization
+* restricted access to protected pages
+
+Examples:
+
+* Admin pages can only be accessed by users with the **ADMIN role**
+* User pages require a valid authenticated session
+
+Unauthorized users cannot access protected endpoints.
+
+# Summary
+Skillball demonstrates a complete **Spring Boot web application** with:
+
+* authentication and authorization
+* database-backed entities
+* layered architecture
+* HTML frontend
+* an educational game mechanic
+
+The project serves as an example of combining **learning applications with interactive gameplay** in a web environment.
