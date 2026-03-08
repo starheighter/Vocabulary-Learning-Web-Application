@@ -1,4 +1,4 @@
-# Skillball – Vocabulary Learning Game
+# Vocabulary-Learning-Web-Application
 
 ## Overview
 Skillball is a **web-based vocabulary learning application** built with **Java, Spring Boot, and Gradle**.
@@ -13,7 +13,7 @@ The system supports two types of users:
 
 The frontend is implemented with **HTML templates**, while the backend is implemented using **Spring Boot** with a layered architecture.
 
-# Features
+## Features
 
 ### User Features
 * User login and registration
@@ -33,7 +33,7 @@ The vocabulary training is integrated into a **football simulation**:
 * Based on the accuracy of the answers, the ball moves **forward or backward** across the field.
 * Better vocabulary performance results in **more successful gameplay**.
 
-# Technology Stack
+## Technology Stack
 Backend:
 
 * Java
@@ -51,13 +51,13 @@ Build tool:
 
 * Gradle
 
-# Running the Application
+## Running the Application
 
-## Requirements
+### Requirements
 * Java JDK 11 or higher
 * Gradle (wrapper included)
 
-## Start the Application
+### Start the Application
 From the project root directory, run:
 ./gradlew bootRun
 
@@ -66,8 +66,6 @@ http://localhost:8080
 
 You will be redirected to the **login page**.
 
-# Application Workflow
-
 ### Login
 Users first access the **login page**.
 
@@ -75,20 +73,20 @@ After authentication:
 * **Admins** are redirected to the **administration interface**
 * **Users** are redirected to the **user dashboard**
 
-# Admin Capabilities
+### Admin Capabilities
 After logging in as an admin, the following features are available:
 * User account management
 * Vocabulary management
 * System administration
 Admins can add, modify, or remove vocabulary entries used in the learning game.
 
-# User Capabilities
+### User Capabilities
 After logging in as a regular user, the following actions are available:
 * Manage personal account settings
 * Change password
 * Play the vocabulary learning game
 
-# Game Description
+### Game Description
 The core feature of the application is the **Skillball vocabulary game**.
 Gameplay works as follows:
 1. The user is shown a vocabulary word.
@@ -99,7 +97,7 @@ Gameplay works as follows:
    * Incorrect answers move the ball **towards the user's own goal**
 The game visually displays the ball moving across the field using images stored in the application.
 
-# Project Structure
+## Project Structure
 The project follows a typical **Spring Boot layered architecture**.
 
 src/main/java/...
@@ -110,8 +108,8 @@ src/main/java/...
 ├── service
 └── SkillballApplication.java
 
-# Package Description
-## config
+## Package Description
+### config
 Contains configuration classes.
 
 Example:
@@ -121,7 +119,7 @@ This class configures:
 * authorization
 * access restrictions for protected pages
 
-## controller
+### controller
 Contains the controllers responsible for handling web requests and returning HTML views.
 
 Examples include controllers for:
@@ -134,7 +132,7 @@ Examples include controllers for:
 
 Controllers connect the frontend HTML templates with the backend services.
 
-## entity
+### entity
 Contains the **JPA entity classes** used by the application.
 
 Examples:
@@ -144,7 +142,7 @@ Examples:
 
 These classes represent the data model used by the application.
 
-## repository
+### repository
 Contains the **Spring Data repositories** used for database access.
 
 Examples:
@@ -153,7 +151,7 @@ Examples:
 
 Repositories provide CRUD operations and database queries.
 
-## service
+### service
 Contains the business logic of the application.
 
 Examples:
@@ -163,12 +161,12 @@ Examples:
 
 Services are used by the controllers to implement application functionality.
 
-# Main Application Class
+## Main Application Class
 The file
 SkillballApplication.java
 contains the main method that starts the Spring Boot application.
 
-# Resources
+## Resources
 The `resources` directory contains:
 
 ### HTML Templates
@@ -183,7 +181,7 @@ Used to render the web interface, including:
 Images used to display the football game states.
 These images represent different **ball positions on the field** and visually reflect the user's progress during gameplay.
 
-# Security
+## Security
 The application includes **built-in security using Spring Security**.
 
 Security features include:
@@ -199,7 +197,7 @@ Examples:
 
 Unauthorized users cannot access protected endpoints.
 
-# Summary
+## Summary
 Skillball demonstrates a complete **Spring Boot web application** with:
 
 * authentication and authorization

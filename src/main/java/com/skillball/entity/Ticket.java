@@ -5,7 +5,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import java.sql.Timestamp;
-import java.util.Date;
 
 @Entity
 public class Ticket {
